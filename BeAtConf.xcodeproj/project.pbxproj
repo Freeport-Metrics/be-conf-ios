@@ -18,6 +18,7 @@
 		57AEFA6D1C91C90D006E2669 /* JsonDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AEFA6C1C91C90D006E2669 /* JsonDeserializer.swift */; };
 		57AEFA6F1C91CC90006E2669 /* ProvideNameScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AEFA6E1C91CC90006E2669 /* ProvideNameScreen.storyboard */; };
 		57AEFA731C91CCD3006E2669 /* ProvideNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AEFA721C91CCD3006E2669 /* ProvideNameViewController.swift */; };
+		57AEFA751C92C9DB006E2669 /* SBJson in Resources */ = {isa = PBXBuildFile; fileRef = 57AEFA741C92C9DB006E2669 /* SBJson */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		57AEFA6C1C91C90D006E2669 /* JsonDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonDeserializer.swift; sourceTree = "<group>"; };
 		57AEFA6E1C91CC90006E2669 /* ProvideNameScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProvideNameScreen.storyboard; sourceTree = "<group>"; };
 		57AEFA721C91CCD3006E2669 /* ProvideNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideNameViewController.swift; sourceTree = "<group>"; };
+		57AEFA741C92C9DB006E2669 /* SBJson */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SBJson; sourceTree = "<group>"; };
+		57AEFA761C92CA44006E2669 /* SBJsonBridgingFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBJsonBridgingFile.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +53,7 @@
 		57AEFA481C91A3E0006E2669 = {
 			isa = PBXGroup;
 			children = (
+				57AEFA741C92C9DB006E2669 /* SBJson */,
 				57AEFA531C91A3E0006E2669 /* BeAtConf */,
 				57AEFA521C91A3E0006E2669 /* Products */,
 			);
@@ -66,20 +70,53 @@
 		57AEFA531C91A3E0006E2669 /* BeAtConf */ = {
 			isa = PBXGroup;
 			children = (
+				57AEFA7A1C92CBFC006E2669 /* Controllers */,
+				57AEFA791C92CBD5006E2669 /* Models */,
+				57AEFA781C92CBC6006E2669 /* Views */,
+				57AEFA771C92CBB6006E2669 /* ViewControllers */,
 				57AEFA541C91A3E0006E2669 /* AppDelegate.swift */,
-				57AEFA561C91A3E0006E2669 /* ViewController.swift */,
-				57AEFA581C91A3E0006E2669 /* Main.storyboard */,
 				57AEFA5B1C91A3E0006E2669 /* Assets.xcassets */,
 				57AEFA5D1C91A3E0006E2669 /* LaunchScreen.storyboard */,
 				57AEFA601C91A3E0006E2669 /* Info.plist */,
-				57AEFA661C91BFAE006E2669 /* ServerController.swift */,
-				57AEFA681C91C45E006E2669 /* ServerResponseModel.swift */,
-				57AEFA6A1C91C46B006E2669 /* ServerConfigModel.swift */,
-				57AEFA6C1C91C90D006E2669 /* JsonDeserializer.swift */,
-				57AEFA6E1C91CC90006E2669 /* ProvideNameScreen.storyboard */,
-				57AEFA721C91CCD3006E2669 /* ProvideNameViewController.swift */,
+				57AEFA761C92CA44006E2669 /* SBJsonBridgingFile.h */,
 			);
 			path = BeAtConf;
+			sourceTree = "<group>";
+		};
+		57AEFA771C92CBB6006E2669 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				57AEFA721C91CCD3006E2669 /* ProvideNameViewController.swift */,
+				57AEFA561C91A3E0006E2669 /* ViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		57AEFA781C92CBC6006E2669 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				57AEFA6E1C91CC90006E2669 /* ProvideNameScreen.storyboard */,
+				57AEFA581C91A3E0006E2669 /* Main.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		57AEFA791C92CBD5006E2669 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				57AEFA6A1C91C46B006E2669 /* ServerConfigModel.swift */,
+				57AEFA681C91C45E006E2669 /* ServerResponseModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		57AEFA7A1C92CBFC006E2669 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				57AEFA6C1C91C90D006E2669 /* JsonDeserializer.swift */,
+				57AEFA661C91BFAE006E2669 /* ServerController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +180,7 @@
 			files = (
 				57AEFA5F1C91A3E0006E2669 /* LaunchScreen.storyboard in Resources */,
 				57AEFA6F1C91CC90006E2669 /* ProvideNameScreen.storyboard in Resources */,
+				57AEFA751C92C9DB006E2669 /* SBJson in Resources */,
 				57AEFA5C1C91A3E0006E2669 /* Assets.xcassets in Resources */,
 				57AEFA5A1C91A3E0006E2669 /* Main.storyboard in Resources */,
 			);

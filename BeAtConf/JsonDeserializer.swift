@@ -8,10 +8,11 @@
 
 import Foundation
 
+
 class JsonDeserializer {
     
-    func deserializeResponse(){
-        
+    func deserializeResponse(json: String){
+    
         
     }
     

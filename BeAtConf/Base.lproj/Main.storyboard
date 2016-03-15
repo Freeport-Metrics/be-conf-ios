@@ -31,8 +31,9 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pUw-4n-DLc">
-                                <rect key="frame" x="43" y="101" width="301" height="490"/>
+                                <rect key="frame" x="37" y="89" width="301" height="502"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Label" rowHeight="120" id="6LL-tK-EvJ" customClass="TableViewCell" customModule="BeAtConf" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="301" height="120"/>
@@ -54,7 +55,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="subtitleLabel" destination="8o1-AE-qJY" id="nVi-bz-K34"/>
                                             <outlet property="titleLabel" destination="B8p-vC-rqO" id="fZv-n8-APR"/>

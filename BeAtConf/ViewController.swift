@@ -32,14 +32,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.view.backgroundColor = UIColor.lightGrayColor()
         
-        //Throw loading screen
-            handleUserName()
+        
+
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = self.view.bounds
+        gradient.colors = [UIColor.grayColor().CGColor, UIColor.whiteColor().CGColor]
+
+        
+        self.view.backgroundColor = view.backgroundColor
+        self.view.layer.insertSublayer(gradient, atIndex: 0)
+        handleUserName()
         configSocket()
-        //let uuid  = NSUUID.init(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
-        
-        //let region = CLBeaconRegion.init(proximityUUID: uuid!, identifier: "Beacon")
 
         roomList.registerNib(UINib.init(nibName: "MyTableViewCell", bundle: nil),
             forCellReuseIdentifier: "LabelCell")
@@ -66,7 +72,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
     @IBAction func resetName(sender: AnyObject) {
+        socket.disconnect()
         goToNameView()
+        socket.connect()
     }
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion){
@@ -222,6 +230,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             users = users + name.1["name"].rawString()!
         }
         cell.subtitleLabel.text = users
+        cell.backgroundColor = UIColor.clearColor()
         return cell
     }
     

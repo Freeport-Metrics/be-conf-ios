@@ -44,8 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         nc.postNotificationName("setDebugLabel", object: nil)
         SocketLogic.socket.connect()
         enterRoom("10344_31183")
-        }
-        
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {

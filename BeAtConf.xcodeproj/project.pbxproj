@@ -12,6 +12,7 @@
 		578A08481C970CDB00A452F9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578A08471C970CDB00A452F9 /* TableViewCell.swift */; };
 		578A084B1C9719C300A452F9 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578A08491C9719C300A452F9 /* MyTableViewCell.swift */; };
 		578A084C1C9719C300A452F9 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 578A084A1C9719C300A452F9 /* MyTableViewCell.xib */; };
+		578A084E1C99642500A452F9 /* SocketLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578A084D1C99642500A452F9 /* SocketLogic.swift */; };
 		57AEFA551C91A3E0006E2669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AEFA541C91A3E0006E2669 /* AppDelegate.swift */; };
 		57AEFA571C91A3E0006E2669 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AEFA561C91A3E0006E2669 /* ViewController.swift */; };
 		57AEFA5A1C91A3E0006E2669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AEFA581C91A3E0006E2669 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		578A08471C970CDB00A452F9 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		578A08491C9719C300A452F9 /* MyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		578A084A1C9719C300A452F9 /* MyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyTableViewCell.xib; sourceTree = "<group>"; };
+		578A084D1C99642500A452F9 /* SocketLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketLogic.swift; sourceTree = "<group>"; };
 		57AEFA511C91A3E0006E2669 /* BeAtConf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeAtConf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AEFA541C91A3E0006E2669 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57AEFA561C91A3E0006E2669 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				57AEFA5D1C91A3E0006E2669 /* LaunchScreen.storyboard */,
 				57AEFA601C91A3E0006E2669 /* Info.plist */,
 				57AEFA761C92CA44006E2669 /* BeAtConf-Bridging-Header.h */,
+				578A084D1C99642500A452F9 /* SocketLogic.swift */,
 			);
 			path = BeAtConf;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				57AEFB301C92DBA4006E2669 /* SocketEngineClient.swift in Sources */,
 				57AEFB3E1C92DBA4006E2669 /* SwiftRegex.swift in Sources */,
 				57AEFAAA1C92D456006E2669 /* SBJson4Parser.m in Sources */,
+				578A084E1C99642500A452F9 /* SocketLogic.swift in Sources */,
 				57AEFA6D1C91C90D006E2669 /* JsonDeserializer.swift in Sources */,
 				57AEFAAC1C92D456006E2669 /* SBJson4StreamParserState.m in Sources */,
 				57AEFB321C92DBA4006E2669 /* SocketEnginePollable.swift in Sources */,

@@ -71,7 +71,13 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cW4-GC-hFm">
-                                <rect key="frame" x="20" y="28" width="335" height="21"/>
+                                <rect key="frame" x="20" y="28" width="252" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sb0-VW-cxW">
+                                <rect key="frame" x="296" y="28" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -82,6 +88,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="debugLabel" destination="cW4-GC-hFm" id="eYp-qV-XZq"/>
+                        <outlet property="fetchLabel" destination="Sb0-VW-cxW" id="a8M-OE-GmD"/>
                         <outlet property="roomList" destination="pUw-4n-DLc" id="HWW-Je-QyR"/>
                         <outlet property="testLabel" destination="MyE-U3-JGL" id="ZNP-e8-ReS"/>
                     </connections>

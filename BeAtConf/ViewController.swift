@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         @IBOutlet weak var roomList: UITableView!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var testLabel: UILabel!
+    @IBOutlet weak var fetchLabel: UILabel!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var userNameId: String = ""
@@ -75,6 +76,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func setiDebugLabel(notification: NSNotification){
         debugLabel.text = appDelegate.setDebugLabelText()
+        fetchLabel.text = appDelegate.setCounterLabelText()
     }
         
     func goToNameView(){

@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     var config:JSON = [:]
     var rooms:JSON = [:]
+    var timer: dispatch_source_t!
+    var counter = 0
     var roomConfigArray: [String] = []
     var isConfigSet: Bool = false
     var userNameId: String = ""
@@ -30,43 +32,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion){
         handleBeacons(beacons)
-        NSLog("beacon handling in the background")
     }
     func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
         NSLog("error while ranging beacons (ranging beacons did fail for region)")
         latestPrint = "Started Beacon Ranging"
-
     }
     
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) throws {
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion){
         print("Entered a region")
         latestPrint = "Entered a region"
         nc.postNotificationName("setDebugLabel", object: nil)
         SocketLogic.socket.connect()
-        enterRoom("10344_31183")
+        enterRoom("5919_60231")
+        NSLog("Entered room 5919_60231")
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("Left a region")
+        latestPrint = "Left a region"
         nc.postNotificationName("setDebugLabel", object: nil)
-         leaveRoom("10344_31183")
+        leaveRoom("5919_60231")
     }
     
     func setDebugLabelText() -> String{
         return latestPrint
     }
     
+    func setCounterLabelText() -> String{
+        return String(self.counter)
+    }
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         setName()
         configSocket()
         registerBeacon()
-        locationManager2.delegate = self
-        locationManager2.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager2.startUpdatingLocation()
+        //locationManager2.delegate = self
+        //locationManager2.desiredAccuracy = kCLLocationAccuracyKilometer
+        //locationManager2.startUpdatingLocation()
+        application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         locationManager.startRangingBeaconsInRegion(region)
+        region.notifyEntryStateOnDisplay = true;
         locationManager.startMonitoringForRegion(region)
         return true
+    }
+    
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        NSLog("Performing Fetch")
+        self.counter = self.counter + 1
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -136,14 +150,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         for beacon in beacons {
             let beaconId = "" + beacon.major.stringValue + "_" + beacon.minor.stringValue
             
-            
             for room in config {
                 if (room.1["b_id"].stringValue == beaconId){
                     let radius = room.1["room_radius"].int
-                    if (beacon.major == 45287){
-                        print("beacon 45287")
-                        print(beacon.accuracy)
-                    }
                     let doubleRadius = Double(radius!)
                     if (beacon.accuracy < doubleRadius && beacon.accuracy > 0){
                         insideRoom(beacon, room: room.1, beaconId: beaconId)
@@ -187,6 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func enterRoom(beaconId: String){
+        //send HTTP request to enter room?
         SocketLogic.socket.emit("enterRoom", "{\"user_id\":\"" + self.userNameId + "\",\"room_id\":\"" + beaconId + "\"}")
     }
     
@@ -204,7 +214,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -220,7 +229,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     
-
 
 }
 

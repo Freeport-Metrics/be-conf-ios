@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func startAppLogic(){
+        NSLog("Starting app logic")
         setName()
         configSocket()
         registerBeacon()

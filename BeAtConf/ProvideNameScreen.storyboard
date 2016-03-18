@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Provide Name View Controller-->
@@ -17,26 +18,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-A0-PbR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ry6-A0-PbR">
                                 <rect key="frame" x="84" y="253" width="246" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2Z-Kd-dsS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2Z-Kd-dsS">
                                 <rect key="frame" x="184" y="307" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="submitButtonPressed:" destination="JBv-Eo-ELx" eventType="touchDown" id="VIb-OX-Ld8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQJ-C8-V2N">
-                                <rect key="frame" x="125" y="216" width="165" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQJ-C8-V2N">
+                                <rect key="frame" x="144" y="216" width="126" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ry6-A0-PbR" secondAttribute="trailing" constant="64" id="Ihi-ZZ-Qq2"/>
+                            <constraint firstItem="v2Z-Kd-dsS" firstAttribute="top" secondItem="Ry6-A0-PbR" secondAttribute="bottom" constant="24" id="dgL-v3-bzs"/>
+                            <constraint firstItem="Ry6-A0-PbR" firstAttribute="centerX" secondItem="oQJ-C8-V2N" secondAttribute="centerX" id="f05-3E-eYb"/>
+                            <constraint firstItem="Ry6-A0-PbR" firstAttribute="centerX" secondItem="v2Z-Kd-dsS" secondAttribute="centerX" id="uen-RY-8zD"/>
+                            <constraint firstItem="Ry6-A0-PbR" firstAttribute="top" secondItem="mLW-cW-IrP" secondAttribute="top" constant="253" id="wCk-5Z-xc0"/>
+                            <constraint firstItem="Ry6-A0-PbR" firstAttribute="top" secondItem="oQJ-C8-V2N" secondAttribute="bottom" constant="16" id="xhM-zs-2pI"/>
+                            <constraint firstItem="Ry6-A0-PbR" firstAttribute="leading" secondItem="mLW-cW-IrP" secondAttribute="leadingMargin" constant="64" id="ySf-dO-od1"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>

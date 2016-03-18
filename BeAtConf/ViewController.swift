@@ -98,6 +98,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else{
             let userName = defaults.objectForKey("userName")
             testLabel.text = "Hello , \(userName!)"
+            appDelegate.startAppLogic()
         }
 
         //self.userNameId = (defaults.objectForKey("userName") as? String)!

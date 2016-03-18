@@ -101,7 +101,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.AuthorizedAlways){
             locationManager.requestAlwaysAuthorization()
         }
-        locationManager.allowsBackgroundLocationUpdates = true
+        if #available(iOS 9.0, *) {
+            locationManager.allowsBackgroundLocationUpdates = true
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func configSocket(){

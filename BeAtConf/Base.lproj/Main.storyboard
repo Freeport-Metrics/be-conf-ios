@@ -31,9 +31,8 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pUw-4n-DLc">
-                                <rect key="frame" x="37" y="89" width="301" height="502"/>
+                                <rect key="frame" x="37" y="89" width="301" height="376"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Label" rowHeight="120" id="6LL-tK-EvJ" customClass="TableViewCell" customModule="BeAtConf" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="301" height="120"/>
@@ -55,9 +54,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="subtitleLabel" destination="8o1-AE-qJY" id="nVi-bz-K34"/>
                                             <outlet property="titleLabel" destination="B8p-vC-rqO" id="fZv-n8-APR"/>
@@ -76,21 +73,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sb0-VW-cxW">
-                                <rect key="frame" x="296" y="28" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IeC-9S-CW1">
+                                <rect key="frame" x="37" y="473" width="301" height="128"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="debugLabel" destination="cW4-GC-hFm" id="eYp-qV-XZq"/>
-                        <outlet property="fetchLabel" destination="Sb0-VW-cxW" id="a8M-OE-GmD"/>
+                        <outlet property="fmLogoView" destination="IeC-9S-CW1" id="fpQ-rr-kNJ"/>
                         <outlet property="roomList" destination="pUw-4n-DLc" id="HWW-Je-QyR"/>
-                        <outlet property="testLabel" destination="MyE-U3-JGL" id="ZNP-e8-ReS"/>
+                        <outlet property="testLabel" destination="MyE-U3-JGL" id="WUV-Jk-SDr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

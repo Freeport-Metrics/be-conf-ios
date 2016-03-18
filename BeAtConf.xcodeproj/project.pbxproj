@@ -13,6 +13,7 @@
 		578A084B1C9719C300A452F9 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578A08491C9719C300A452F9 /* MyTableViewCell.swift */; };
 		578A084C1C9719C300A452F9 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 578A084A1C9719C300A452F9 /* MyTableViewCell.xib */; };
 		578A084E1C99642500A452F9 /* SocketLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578A084D1C99642500A452F9 /* SocketLogic.swift */; };
+		578A08501C9ADFCB00A452F9 /* ic_fm_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 578A084F1C9ADFCB00A452F9 /* ic_fm_logo.png */; };
 		57AEFA551C91A3E0006E2669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AEFA541C91A3E0006E2669 /* AppDelegate.swift */; };
 		57AEFA571C91A3E0006E2669 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AEFA561C91A3E0006E2669 /* ViewController.swift */; };
 		57AEFA5A1C91A3E0006E2669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AEFA581C91A3E0006E2669 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 		578A08491C9719C300A452F9 /* MyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		578A084A1C9719C300A452F9 /* MyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyTableViewCell.xib; sourceTree = "<group>"; };
 		578A084D1C99642500A452F9 /* SocketLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketLogic.swift; sourceTree = "<group>"; };
+		578A084F1C9ADFCB00A452F9 /* ic_fm_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_fm_logo.png; sourceTree = "<group>"; };
 		57AEFA511C91A3E0006E2669 /* BeAtConf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeAtConf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AEFA541C91A3E0006E2669 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57AEFA561C91A3E0006E2669 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		57AEFA531C91A3E0006E2669 /* BeAtConf */ = {
 			isa = PBXGroup;
 			children = (
+				578A084F1C9ADFCB00A452F9 /* ic_fm_logo.png */,
 				57AEFA991C92D428006E2669 /* Libraries */,
 				57AEFA7A1C92CBFC006E2669 /* Controllers */,
 				57AEFA791C92CBD5006E2669 /* Models */,
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				578A084C1C9719C300A452F9 /* MyTableViewCell.xib in Resources */,
+				578A08501C9ADFCB00A452F9 /* ic_fm_logo.png in Resources */,
 				57AEFA5F1C91A3E0006E2669 /* LaunchScreen.storyboard in Resources */,
 				57AEFA6F1C91CC90006E2669 /* ProvideNameScreen.storyboard in Resources */,
 				57AEFA5C1C91A3E0006E2669 /* Assets.xcassets in Resources */,

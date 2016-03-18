@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         @IBOutlet weak var roomList: UITableView!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var testLabel: UILabel!
-    @IBOutlet weak var fetchLabel: UILabel!
+    @IBOutlet weak var fmLogoView: UIImageView!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var userNameId: String = ""
@@ -24,19 +24,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         self.view.backgroundColor = UIColor.lightGrayColor()
         let nc = NSNotificationCenter.defaultCenter()
+        
+        roomList.backgroundColor = UIColor.clearColor()
         
         nc.addObserver(self, selector: "handleDidEnterBackgroundNotification:",name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
         nc.addObserver(self, selector: "reloadData:", name: "ReloadData", object:nil)
         
         nc.addObserver(self, selector: "setiDebugLabel:", name: "setDebugLabel", object:nil)
-
+        fmLogoView.image = UIImage(named: "ic_fm_logo.png")
 
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.view.bounds
-        gradient.colors = [UIColor.grayColor().CGColor, UIColor.whiteColor().CGColor]
+        gradient.colors = [UIColor.lightGrayColor().CGColor, UIColor.whiteColor().CGColor]
 
         self.view.backgroundColor = view.backgroundColor
         self.view.layer.insertSublayer(gradient, atIndex: 0)
@@ -76,7 +79,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func setiDebugLabel(notification: NSNotification){
         debugLabel.text = appDelegate.setDebugLabelText()
-        fetchLabel.text = appDelegate.setCounterLabelText()
     }
         
     func goToNameView(){
@@ -88,13 +90,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func handleUserName(){
         let defaults = NSUserDefaults.standardUserDefaults()
-        if (defaults.objectForKey("userName") == nil){
+        if (defaults.objectForKey("userName") == nil || defaults.objectForKey("userName") as? String == ""){
             goToNameView()
         }else{
             let userName = defaults.objectForKey("userName")
             testLabel.text = "Hello , \(userName!)"
         }
-        self.userNameId = (defaults.objectForKey("userName") as? String)!
+        //self.userNameId = (defaults.objectForKey("userName") as? String)!
 
     }
     
@@ -114,7 +116,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let rooms = appDelegate.getRooms()
 
         cell.titleLabel.text = rooms[indexPath.section]["label"].rawString()
-        
+        cell.titleLabel.alpha = 1
         var users :String = ""
         for name in rooms[indexPath.section]["users"]{
             users = users + name.1["name"].rawString()! + ", "
@@ -124,7 +126,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             users.removeAtIndex(users.endIndex.predecessor())
         }
         cell.subtitleLabel.text = users
-        cell.backgroundColor = UIColor.clearColor()
+        //cell.backgroundColor = UIColor.clearColor()
+        //cell.backgroundView?.backgroundColor = UIColor.clearColor()
+        //cell.contentView.backgroundColor = UIColor.clearColor()
         return cell
     }
     

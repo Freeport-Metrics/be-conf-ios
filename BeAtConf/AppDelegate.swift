@@ -12,12 +12,14 @@ import AVFoundation
 import AudioToolbox
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, NSURLSessionDelegate, NSURLSessionDataDelegate {
 
     var window: UIWindow?
     let region = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")!, identifier: "Estimotes")
     let locationManager = CLLocationManager()
-    let locationManager2 = CLLocationManager()
+    
+    let enterUrl: String = "http://beatconf-freeportmetrics.rhcloud.com/enter_room"
+    let leaveUrl: String = "http://beatconf-freeportmetrics.rhcloud.com/leave_room"
     
     var config:JSON = [:]
     var rooms:JSON = [:]
@@ -28,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var userNameId: String = ""
     var latestPrint: String = ""
     let nc = NSNotificationCenter.defaultCenter()
+    let id: String = "1234"
 
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion){
@@ -35,23 +38,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
         NSLog("error while ranging beacons (ranging beacons did fail for region)")
-        latestPrint = "Started Beacon Ranging"
     }
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion){
-        print("Entered a region")
-        latestPrint = "Entered a region"
-        nc.postNotificationName("setDebugLabel", object: nil)
-        SocketLogic.socket.connect()
-        enterRoom("5919_60231")
-        NSLog("Entered room 5919_60231")
+        NSLog("Entering Region")
+        locationManager.startRangingBeaconsInRegion(self.region)
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
-        print("Left a region")
-        latestPrint = "Left a region"
-        nc.postNotificationName("setDebugLabel", object: nil)
-        leaveRoom("5919_60231")
+        outsideRoom()
+        locationManager.stopRangingBeaconsInRegion(self.region)
     }
     
     func setDebugLabelText() -> String{
@@ -68,11 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         setName()
         configSocket()
         registerBeacon()
-        //locationManager2.delegate = self
-        //locationManager2.desiredAccuracy = kCLLocationAccuracyKilometer
-        //locationManager2.startUpdatingLocation()
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-        locationManager.startRangingBeaconsInRegion(region)
         region.notifyEntryStateOnDisplay = true;
         locationManager.startMonitoringForRegion(region)
         return true
@@ -80,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         NSLog("Performing Fetch")
-        self.counter = self.counter + 1
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -97,6 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.AuthorizedAlways){
             locationManager.requestAlwaysAuthorization()
         }
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
     func configSocket(){
@@ -118,13 +110,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func handleRooms(data: AnyObject){
-        if (isConfigSet == true){
+       // if (isConfigSet == true){
             let json = JSON(data)
             rooms = json[0]["rooms"]
             nc.postNotificationName("ReloadData", object: nil)
-        }else{
-            print("config not yet set")
-        }
+        //}else{
+        //    print("config not yet set")
+       // }
     }
     
     func handleConfig(data: AnyObject){
@@ -150,17 +142,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         for beacon in beacons {
             let beaconId = "" + beacon.major.stringValue + "_" + beacon.minor.stringValue
             
-            for room in config {
-                if (room.1["b_id"].stringValue == beaconId){
-                    let radius = room.1["room_radius"].int
-                    let doubleRadius = Double(radius!)
-                    if (beacon.accuracy < doubleRadius && beacon.accuracy > 0){
-                        insideRoom(beacon, room: room.1, beaconId: beaconId)
-                    }
-                    if (beacon.accuracy > doubleRadius && beacon.accuracy > 0)
-                    {
-                        outsideRoom(beacon, room: room.1, beaconId: beaconId)
-                    }
+            for room in rooms {
+                if (room.1["room_id"].stringValue == beaconId){
+                    insideRoom(beacon, room: room.1, beaconId: beaconId)
                 }
             }
             
@@ -169,42 +153,96 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func insideRoom(beacon: CLBeacon, room: JSON, beaconId: String){
         //if room exists in room array, do nothing...?
-        if (roomConfigArray.contains(beaconId)){
+        if(roomConfigArray.contains(beaconId)){
+        
         }else{
-            roomConfigArray.append(beaconId)
-            enterRoom(beaconId)
-            NSLog("Entering Room")
-            latestPrint = "Inside a room"
-            nc.postNotificationName("setDebugLabel", object: nil)
+        roomConfigArray.append(beaconId)
+        enterRoom(beaconId)
+        updateLabel("You are inside " + room["label"].string!)
+            print(beacon.accuracy)
         }
+        
         //else enter the room
     }
     
-    func outsideRoom(beacon: CLBeacon, room: JSON, beaconId: String){
-        //if room non existant in room array, do nothing...
-        //else leave the room
-        if (roomConfigArray.contains(beaconId)){
+    func updateLabel(text: String){
+        latestPrint = text
+        nc.postNotificationName("setDebugLabel", object: nil)
+    }
+    
+    func outsideRoom(){
+        for beaconId in roomConfigArray{
+            leaveRoom(beaconId)
+            updateLabel("Leaving room " + beaconId)
             let index = roomConfigArray.indexOf(beaconId)
             roomConfigArray.removeAtIndex(index!)
-            //print("leaving room" + beaconId + " with range")
-            //print(beacon.accuracy)
+        }
+
+    }
+    
+    func leaveEveryOtherRoom(beaconIdToLeave: String){
+        for beaconId in roomConfigArray{
+            if (beaconIdToLeave == beaconId){}else{
             leaveRoom(beaconId)
-            NSLog("Leaving Room")
-            latestPrint = "outside a room"
-            nc.postNotificationName("setDebugLabel", object: nil)
+            updateLabel("Leaving room " + beaconId)
+            let index = roomConfigArray.indexOf(beaconId)
+            roomConfigArray.removeAtIndex(index!)
+            }
         }
     }
     
+    
     func enterRoom(beaconId: String){
         //send HTTP request to enter room?
-        SocketLogic.socket.emit("enterRoom", "{\"user_id\":\"" + self.userNameId + "\",\"room_id\":\"" + beaconId + "\"}")
+        NSLog("Entering room " + beaconId)
+        leaveEveryOtherRoom(beaconId)
+        sendHttpRequest(beaconId, requestUrl: self.enterUrl)
     }
     
     func leaveRoom(beaconId: String){
-        SocketLogic.socket.emit("leaveRoom", "{\"user_id\":\"" + self.userNameId + "\",\"room_id\":\"" + beaconId + "\"}")
+        sendHttpRequest(beaconId, requestUrl: self.leaveUrl)
     }
 
+    func sendHttpRequest(beaconId: String, requestUrl: String){
+        let postBody: NSString = "{\"room_id\"" + ":" + "\"" + beaconId + "\"" + "," + "\"id\"" + ":" + "\"" + self.id + "\"" + "," + "\"user_id\"" + ":" + "\"" + self.userNameId + "\"}"
+        print(postBody)
+        let url:NSURL = NSURL(string: requestUrl)!
+        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("3211")
+        let session = NSURLSession.init(configuration: config, delegate:self, delegateQueue:nil)
 
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.HTTPMethod = "POST"
+        request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringCacheData
+        request.HTTPBody = postBody.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task: NSURLSessionTask = session.uploadTaskWithStreamedRequest(request)
+        
+        
+        
+        /*let task = session.dataTaskWithRequest(request) {
+            (
+            let data, let response, let error) in
+        
+            guard let _:NSData = data, let _:NSURLResponse = response  where error == nil else {
+                print("error")
+                return
+            }
+            
+            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print(dataString)
+            
+        }*/
+        
+        task.resume()
+
+    }
+    
+
+    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+        
+    }
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -35,18 +35,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion){
         handleBeacons(beacons)
+        NSLog("ranged beacons")
     }
     func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
         NSLog("error while ranging beacons (ranging beacons did fail for region)")
     }
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion){
-        NSLog("Entering Region")
+        NSLog("Entering Region, starting monitoring region")
         locationManager.startRangingBeaconsInRegion(self.region)
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         outsideRoom()
+        NSLog("Exiting Region, stopping ranging for region")
         locationManager.stopRangingBeaconsInRegion(self.region)
     }
     
@@ -67,11 +69,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         region.notifyEntryStateOnDisplay = true;
         locationManager.startMonitoringForRegion(region)
+        NSLog("Starting Region Monitoring")
         return true
     }
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         NSLog("Performing Fetch")
+        locationManager.startRangingBeaconsInRegion(self.region)
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -177,6 +181,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let index = roomConfigArray.indexOf(beaconId)
             roomConfigArray.removeAtIndex(index!)
         }
+        for room in rooms{
+            leaveRoom(room.1["room_id"].stringValue)
+        }
+        
 
     }
     
@@ -201,6 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func leaveRoom(beaconId: String){
         sendHttpRequest(beaconId, requestUrl: self.leaveUrl)
+        NSLog("Leaving room " + beaconId)
     }
 
     func sendHttpRequest(beaconId: String, requestUrl: String){
@@ -219,28 +228,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         let task: NSURLSessionTask = session.uploadTaskWithStreamedRequest(request)
         
-        
-        
-        /*let task = session.dataTaskWithRequest(request) {
-            (
-            let data, let response, let error) in
-        
-            guard let _:NSData = data, let _:NSURLResponse = response  where error == nil else {
-                print("error")
-                return
-            }
-            
-            let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-            print(dataString)
-            
-        }*/
-        
         task.resume()
 
     }
     
 
     func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+        locationManager.startRangingBeaconsInRegion(self.region)
         
     }
     
@@ -256,6 +250,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        locationManager.startRangingBeaconsInRegion(self.region)
+        NSLog("Started beacon ranging")
+
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -264,6 +261,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        outsideRoom()
+        NSLog("Terminating app")
     }
     
     

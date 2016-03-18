@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
 
 
+       
         self.view.backgroundColor = UIColor.lightGrayColor()
         let nc = NSNotificationCenter.defaultCenter()
         
@@ -43,7 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         self.view.backgroundColor = view.backgroundColor
         self.view.layer.insertSublayer(gradient, atIndex: 0)
-        handleUserName()
+        
 
         roomList.registerNib(UINib.init(nibName: "MyTableViewCell", bundle: nil),
             forCellReuseIdentifier: "LabelCell")
@@ -55,7 +56,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     override func viewDidAppear(animated: Bool) {
-
+        handleUserName()
     }
     
 
@@ -92,10 +93,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let defaults = NSUserDefaults.standardUserDefaults()
         if (defaults.objectForKey("userName") == nil || defaults.objectForKey("userName") as? String == ""){
             goToNameView()
+            let id: String = NSUUID().UUIDString
+            defaults.setObject(id, forKey: "id")
         }else{
             let userName = defaults.objectForKey("userName")
             testLabel.text = "Hello , \(userName!)"
         }
+
         //self.userNameId = (defaults.objectForKey("userName") as? String)!
 
     }
@@ -135,7 +139,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
     }
-    
+
 }
 
 

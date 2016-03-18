@@ -14,6 +14,8 @@ class ProvideNameViewController: UIViewController {
     
     
     @IBOutlet weak var userName: UITextField!
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,7 @@ class ProvideNameViewController: UIViewController {
         let vc = storyboard.instantiateViewControllerWithIdentifier("ViewController") as UIViewController
         
         presentViewController(vc, animated: true, completion: nil)
+        appDelegate.startAppLogic()
     }
     
 }

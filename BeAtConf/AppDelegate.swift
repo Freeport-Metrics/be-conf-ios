@@ -30,7 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var userNameId: String = ""
     var latestPrint: String = ""
     let nc = NSNotificationCenter.defaultCenter()
-    let id: String = "1234"
+    var id: String = ""
+    
 
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion){
@@ -63,14 +64,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        
+        print("id: " + self.id)
+        return true
+    }
+    
+    func startAppLogic(){
         setName()
         configSocket()
         registerBeacon()
-        application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-        region.notifyEntryStateOnDisplay = true;
+        self.region.notifyEntryStateOnDisplay = true;
         locationManager.startMonitoringForRegion(region)
         NSLog("Starting Region Monitoring")
-        return true
+
     }
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
@@ -84,7 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func setName(){
         let defaults = NSUserDefaults.standardUserDefaults()
-        userNameId = (defaults.objectForKey("userName") as? String)!
+        self.userNameId = (defaults.objectForKey("userName") as? String)!
+        self.id = (defaults.objectForKey("id") as? String)!
     }
     
     func registerBeacon(){
@@ -259,6 +267,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
+    
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         outsideRoom()

@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 
 class ProvideNameViewController: UIViewController {
+    @IBOutlet weak var fmLogoView: UIImageView!
     
     
     @IBOutlet weak var userName: UITextField!
@@ -19,6 +20,7 @@ class ProvideNameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fmLogoView.image = UIImage(named: "ic_fm_logo.png")
         // Do any additional setup after loading the view, typically from a nib.
     }
     

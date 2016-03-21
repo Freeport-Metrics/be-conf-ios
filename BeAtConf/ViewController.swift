@@ -16,7 +16,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         @IBOutlet weak var roomList: UITableView!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var testLabel: UILabel!
-    @IBOutlet weak var fmLogoView: UIImageView!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var userNameId: String = ""
@@ -25,7 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
 
 
-       
+        debugLabel.text = ""
         self.view.backgroundColor = UIColor.lightGrayColor()
         let nc = NSNotificationCenter.defaultCenter()
         
@@ -36,7 +35,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         nc.addObserver(self, selector: "reloadData:", name: "ReloadData", object:nil)
         
         nc.addObserver(self, selector: "setiDebugLabel:", name: "setDebugLabel", object:nil)
-        fmLogoView.image = UIImage(named: "ic_fm_logo.png")
 
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.view.bounds

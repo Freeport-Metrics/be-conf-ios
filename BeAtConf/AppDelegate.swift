@@ -190,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func outsideRoom(){
         for beaconId in roomConfigArray{
             leaveRoom(beaconId)
-            updateLabel("Leaving room " + beaconId)
+            updateLabel("")
             let index = roomConfigArray.indexOf(beaconId)
             roomConfigArray.removeAtIndex(index!)
         }
@@ -205,7 +205,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         for beaconId in roomConfigArray{
             if (beaconIdToLeave == beaconId){}else{
             leaveRoom(beaconId)
-            updateLabel("Leaving room " + beaconId)
+            updateLabel("")
             let index = roomConfigArray.indexOf(beaconId)
             roomConfigArray.removeAtIndex(index!)
             }
